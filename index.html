@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>the Fleet™ — Personalized Physical Therapy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white: #f5f3ee;
+    --black: #1a1a18;
+    --chartreuse: #d2e04b;
+    --chart-dark: #b8c93a;
+    --sun: #c4901a;
+    --water: #0d3354;
+    --earth: #5c2400;
+    --sky: #bfd4e8;
+    --flora: #e8d4df;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --gap: clamp(60px, 8vw, 120px);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--black);
+    font-family: var(--sans);
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* ── UTILITIES ── */
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 clamp(24px, 5vw, 60px); }
+  .overline {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--chart-dark);
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* ── REVEAL ANIMATION ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-delay-1 { transition-delay: .1s; }
+  .reveal-delay-2 { transition-delay: .2s; }
+  .reveal-delay-3 { transition-delay: .3s; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 22px 0;
+    background: rgba(245,243,238,.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(26,26,24,.07);
+    transition: box-shadow .3s;
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    max-width: 1160px; margin: 0 auto; padding: 0 clamp(24px, 5vw, 60px);
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .nav-brand svg { width: 36px; height: 36px; }
+  .nav-brand span {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    letter-spacing: -.01em;
+  }
+  .nav-links { display: flex; gap: 36px; align-items: center; }
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: .04em;
+    color: var(--black);
+    opacity: .65;
+    transition: opacity .2s;
+  }
+  .nav-links a:hover { opacity: 1; }
+  .nav-book {
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    letter-spacing: .12em !important;
+    text-transform: uppercase;
+    opacity: 1 !important;
+    background: var(--black);
+    color: var(--white) !important;
+    padding: 9px 22px;
+    border-radius: 2px;
+    transition: background .2s !important;
+  }
+  .nav-book:hover { background: #333 !important; }
+
+  /* ── HERO ── */
+  .hero {
+    padding-top: 130px;
+    padding-bottom: var(--gap);
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    right: -80px; top: 80px;
+    width: 520px; height: 520px;
+    background: var(--chartreuse);
+    border-radius: 50%;
+    opacity: .18;
+    pointer-events: none;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .hero-eyebrow {
+    margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.6rem, 5vw, 4.2rem);
+    line-height: 1.07;
+    letter-spacing: -.025em;
+    font-weight: 400;
+    margin-bottom: 28px;
+    color: var(--black);
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--chart-dark);
+  }
+  .hero-body {
+    font-size: 1.02rem;
+    line-height: 1.75;
+    color: rgba(26,26,24,.7);
+    max-width: 420px;
+    margin-bottom: 42px;
+  }
+  .hero-actions { display: flex; gap: 20px; align-items: center; }
+  .btn-primary {
+    display: inline-block;
+    background: var(--black);
+    color: var(--white);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    border-radius: 2px;
+    transition: background .2s, transform .2s;
+  }
+  .btn-primary:hover { background: #333; transform: translateY(-1px); }
+  .btn-ghost {
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: .04em;
+    border-bottom: 1px solid rgba(26,26,24,.3);
+    padding-bottom: 2px;
+    color: rgba(26,26,24,.6);
+    transition: color .2s, border-color .2s;
+  }
+  .btn-ghost:hover { color: var(--black); border-color: var(--black); }
+
+  /* Hero symbol */
+  .hero-symbol {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  .hero-symbol-ring {
+    width: clamp(280px, 36vw, 420px);
+    height: clamp(280px, 36vw, 420px);
+    position: relative;
+  }
+  .hero-symbol-ring svg { width: 100%; height: 100%; }
+  .hero-tagline {
+    position: absolute;
+    bottom: -32px;
+    right: 0;
+    left: 0;
+    text-align: center;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: .9rem;
+    color: rgba(26,26,24,.4);
+    letter-spacing: .01em;
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-bar {
+    background: var(--black);
+    color: var(--chartreuse);
+    padding: 14px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .marquee-track {
+    display: inline-flex;
+    animation: marquee 22s linear infinite;
+  }
+  .marquee-track span {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    padding: 0 36px;
+  }
+  .marquee-track span.dot {
+    padding: 0;
+    opacity: .4;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── SECTION BASE ── */
+  section { padding: var(--gap) 0; }
+
+  /* ── INTRO ── */
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .intro h2 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    line-height: 1.15;
+    font-weight: 400;
+    letter-spacing: -.02em;
+    margin-bottom: 28px;
+  }
+  .intro p {
+    color: rgba(26,26,24,.65);
+    margin-bottom: 18px;
+    max-width: 500px;
+  }
+  .intro-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 48px;
+  }
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 2.4rem;
+    font-weight: 400;
+    line-height: 1;
+    color: var(--chart-dark);
+    margin-bottom: 8px;
+  }
+  .stat-label {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: .05em;
+    color: rgba(26,26,24,.5);
+    text-transform: uppercase;
+  }
+
+  /* ── PROCESS ── */
+  .process { background: var(--black); color: var(--white); }
+  .process-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 72px;
+  }
+  .process-header h2 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 400;
+    letter-spacing: -.02em;
+    max-width: 400px;
+  }
+  .process-header p {
+    max-width: 340px;
+    color: rgba(245,243,238,.55);
+    font-size: .94rem;
+  }
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,.1);
+  }
+  .step {
+    background: var(--black);
+    padding: 40px 32px;
+    transition: background .3s;
+  }
+  .step:hover { background: #242420; }
+  .step-num {
+    font-family: var(--serif);
+    font-size: 3rem;
+    font-weight: 400;
+    color: rgba(245,243,238,.15);
+    line-height: 1;
+    margin-bottom: 24px;
+  }
+  .step h3 {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--chartreuse);
+    margin-bottom: 12px;
+    letter-spacing: -.01em;
+  }
+  .step p {
+    font-size: .88rem;
+    color: rgba(245,243,238,.5);
+    line-height: 1.65;
+  }
+
+  /* ── SERVICES ── */
+  .services-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: end;
+    margin-bottom: 64px;
+  }
+  .services-header h2 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 400;
+    letter-spacing: -.02em;
+    line-height: 1.15;
+  }
+  .services-header p {
+    color: rgba(26,26,24,.6);
+    font-size: .94rem;
+    max-width: 380px;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: rgba(26,26,24,.08);
+  }
+  .service-card {
+    background: var(--white);
+    padding: 44px 36px;
+    transition: background .3s, transform .3s;
+    cursor: default;
+  }
+  .service-card:hover { background: var(--chartreuse); transform: translateY(-3px); }
+  .service-icon {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 24px;
+    opacity: .7;
+  }
+  .service-card h3 {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    font-weight: 400;
+    letter-spacing: -.01em;
+    margin-bottom: 14px;
+  }
+  .service-card p {
+    font-size: .88rem;
+    color: rgba(26,26,24,.6);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .service-card:hover p { color: rgba(26,26,24,.75); }
+  .service-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: auto;
+  }
+  .tag {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    background: rgba(26,26,24,.07);
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+  .service-card:hover .tag { background: rgba(26,26,24,.12); }
+
+  /* ── QUOTE ── */
+  .quote-section {
+    background: var(--chartreuse);
+    padding: calc(var(--gap) * 1.2) 0;
+  }
+  .quote-inner { max-width: 860px; }
+  .quote-mark {
+    font-family: var(--serif);
+    font-size: 5rem;
+    line-height: .6;
+    color: rgba(26,26,24,.2);
+    margin-bottom: 20px;
+    display: block;
+  }
+  blockquote {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: -.015em;
+    color: var(--black);
+    margin-bottom: 28px;
+  }
+  blockquote em { font-style: italic; }
+  cite {
+    font-style: normal;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: rgba(26,26,24,.55);
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .about-portrait {
+    position: relative;
+  }
+  .portrait-bg {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--black);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+  .portrait-bg::after {
+    content: 'Dr. Main Kim, PT DPT';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 20px 24px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: .95rem;
+    color: var(--chartreuse);
+    background: linear-gradient(transparent, rgba(0,0,0,.7));
+  }
+  .portrait-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    opacity: .3;
+  }
+  .portrait-placeholder svg { width: 80px; opacity: .5; }
+  .portrait-badge {
+    position: absolute;
+    right: -20px;
+    bottom: 60px;
+    background: var(--chartreuse);
+    padding: 16px 20px;
+    border-radius: 2px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    line-height: 1.6;
+    box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  }
+  .about-content h2 {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 400;
+    letter-spacing: -.02em;
+    line-height: 1.15;
+    margin-bottom: 28px;
+  }
+  .about-content p {
+    color: rgba(26,26,24,.65);
+    margin-bottom: 18px;
+  }
+  .credentials {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 36px;
+    padding-top: 36px;
+    border-top: 1px solid rgba(26,26,24,.1);
+  }
+  .cred {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    color: rgba(26,26,24,.6);
+  }
+  .cred::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--chartreuse);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── ECOSYSTEM ── */
+  .ecosystem { background: var(--black); padding: var(--gap) 0; }
+  .ecosystem h2 {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 400;
+    letter-spacing: -.02em;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+  .ecosystem-intro {
+    color: rgba(245,243,238,.5);
+    font-size: .92rem;
+    max-width: 480px;
+    margin-bottom: 56px;
+  }
+  .ecosystem-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+  }
+  .eco-item {
+    background: rgba(255,255,255,.05);
+    color: rgba(245,243,238,.7);
+    padding: 18px 32px;
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    letter-spacing: -.01em;
+    transition: background .25s, color .25s;
+    cursor: default;
+  }
+  .eco-item.active, .eco-item:hover {
+    background: var(--chartreuse);
+    color: var(--black);
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    padding: calc(var(--gap) * 1.4) 0;
+  }
+  .cta-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .cta-section h2 {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    font-weight: 400;
+    letter-spacing: -.025em;
+    line-height: 1.1;
+  }
+  .cta-section h2 em { font-style: italic; color: var(--chart-dark); }
+  .cta-right { display: flex; flex-direction: column; gap: 32px; }
+  .cta-right p { color: rgba(26,26,24,.6); }
+  .cta-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(26,26,24,.1);
+  }
+  .contact-line {
+    font-size: 13px;
+    color: rgba(26,26,24,.5);
+    letter-spacing: .03em;
+  }
+  .contact-line a { color: var(--black); font-weight: 500; }
+  .contact-line a:hover { text-decoration: underline; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black);
+    color: var(--white);
+    padding: 60px 0 32px;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 60px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .footer-brand svg { width: 30px; height: 30px; }
+  .footer-brand span {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+  }
+  .footer-tagline {
+    font-size: .88rem;
+    color: rgba(245,243,238,.4);
+    line-height: 1.65;
+    max-width: 260px;
+  }
+  .footer-col h4 {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: rgba(245,243,238,.35);
+    margin-bottom: 18px;
+  }
+  .footer-col a, .footer-col p {
+    display: block;
+    font-size: 13px;
+    color: rgba(245,243,238,.6);
+    margin-bottom: 10px;
+    transition: color .2s;
+    line-height: 1.5;
+  }
+  .footer-col a:hover { color: var(--chartreuse); }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-copy {
+    font-size: 12px;
+    color: rgba(245,243,238,.3);
+    letter-spacing: .03em;
+  }
+  .footer-eco {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .footer-eco span {
+    font-size: 11px;
+    color: rgba(245,243,238,.25);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    transition: color .2s;
+    cursor: default;
+  }
+  .footer-eco span:hover { color: var(--chartreuse); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 860px) {
+    .hero-grid, .intro-grid, .about-grid, .cta-inner { grid-template-columns: 1fr; gap: 48px; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .services-header, .process-header { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .hero-symbol { display: none; }
+    .portrait-badge { right: 0; }
+    .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
+  }
+  @media (max-width: 560px) {
+    .services-grid, .process-steps { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .intro-stats { grid-template-columns: 1fr 1fr; }
+    .ecosystem-list { gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="46" stroke="#1a1a18" stroke-width="3.5"/>
+        <circle cx="50" cy="50" r="34" stroke="#1a1a18" stroke-width="3.5"/>
+        <line x1="18" y1="50" x2="82" y2="50" stroke="#1a1a18" stroke-width="3.5"/>
+        <path d="M32 50 a18 18 0 0 1 36 0" stroke="#1a1a18" stroke-width="3.5" fill="none"/>
+      </svg>
+      <span>the Fleet™</span>
+    </a>
+    <div class="nav-links">
+      <a href="#approach">Approach</a>
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="https://us03.vagaro.com/merchants/customers/v3/profile/forms?merchantId=cVxSx67cBfk~vgqvkFwYUQ==&userId=VjyaDUqIaJ9ZTvKEP9kn6g==&grouptoken=us03&formId=642c2e641476c62c859ca2ca&businessId=cVxSx67cBfk~vgqvkFwYUQ==&linkFrom=1" target="_blank" class="nav-book">Book a Consult</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap" style="width:100%">
+    <div class="hero-grid">
+      <div>
+        <p class="overline hero-eyebrow reveal">Fort Lee, NJ — 166 Main St, 2nd Floor</p>
+        <h1 class="reveal reveal-delay-1">
+          Long-term.<br>
+          <em>Personalized.</em><br>
+          Exceptional Results.
+        </h1>
+        <p class="hero-body reveal reveal-delay-2">
+          Boutique physical therapy, occupational therapy, and manual bodywork — 
+          delivered with the one-on-one focus most clinics can't offer. You're not a number here. You're part of the Fleet family.
+        </p>
+        <div class="hero-actions reveal reveal-delay-3">
+          <a href="https://us03.vagaro.com/merchants/customers/v3/profile/forms?merchantId=cVxSx67cBfk~vgqvkFwYUQ==&userId=VjyaDUqIaJ9ZTvKEP9kn6g==&grouptoken=us03&formId=642c2e641476c62c859ca2ca&businessId=cVxSx67cBfk~vgqvkFwYUQ==&linkFrom=1" target="_blank" class="btn-primary">Book a first consult</a>
+          <a href="#approach" class="btn-ghost">Our approach →</a>
+        </div>
+      </div>
+      <div class="hero-symbol reveal reveal-delay-2">
+        <div class="hero-symbol-ring">
+          <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="200" cy="200" r="190" stroke="#1a1a18" stroke-width="4" opacity=".08"/>
+            <circle cx="200" cy="200" r="190" stroke="#d2e04b" stroke-width="4" stroke-dasharray="8 14" opacity=".5" transform="rotate(-90 200 200)">
+              <animateTransform attributeName="transform" type="rotate" from="270 200 200" to="630 200 200" dur="30s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="200" cy="200" r="142" stroke="#1a1a18" stroke-width="3" opacity=".08"/>
+            <circle cx="200" cy="200" r="94" stroke="#1a1a18" stroke-width="3" opacity=".08"/>
+            <line x1="72" y1="200" x2="328" y2="200" stroke="#1a1a18" stroke-width="3" opacity=".12"/>
+            <path d="M134 200 a66 66 0 0 1 132 0" stroke="#1a1a18" stroke-width="3" fill="none" opacity=".15"/>
+            <circle cx="200" cy="200" r="50" fill="#d2e04b" opacity=".12"/>
+          </svg>
+          <p class="hero-tagline">Professionalism · Precision · Quality Care</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span>Physical Therapy</span><span class="dot">·</span>
+    <span>Occupational Therapy</span><span class="dot">·</span>
+    <span>Manual Therapy</span><span class="dot">·</span>
+    <span>Dry Needling</span><span class="dot">·</span>
+    <span>Cupping</span><span class="dot">·</span>
+    <span>Cold Laser</span><span class="dot">·</span>
+    <span>Therapeutic Exercise</span><span class="dot">·</span>
+    <span>Workers Compensation</span><span class="dot">·</span>
+    <span>Bergen County</span><span class="dot">·</span>
+    <span>Pain Management</span><span class="dot">·</span>
+    <span>Physical Therapy</span><span class="dot">·</span>
+    <span>Occupational Therapy</span><span class="dot">·</span>
+    <span>Manual Therapy</span><span class="dot">·</span>
+    <span>Dry Needling</span><span class="dot">·</span>
+    <span>Cupping</span><span class="dot">·</span>
+    <span>Cold Laser</span><span class="dot">·</span>
+    <span>Therapeutic Exercise</span><span class="dot">·</span>
+    <span>Workers Compensation</span><span class="dot">·</span>
+    <span>Bergen County</span><span class="dot">·</span>
+    <span>Pain Management</span><span class="dot">·</span>
+  </div>
+</div>
+
+<!-- INTRO / APPROACH -->
+<section id="approach">
+  <div class="wrap">
+    <div class="intro-grid">
+      <div class="reveal">
+        <p class="overline" style="margin-bottom:16px">Our Philosophy</p>
+        <h2>Your body deserves<br><em style="font-style:italic;font-family:'DM Serif Display'">focused attention,</em><br>not a revolving door.</h2>
+      </div>
+      <div>
+        <p class="reveal reveal-delay-1">
+          At the Fleet, we operate on a simple premise: lasting results come from understanding 
+          your body, your goals, and your life — not from running you through a cookie-cutter protocol 
+          with three other patients in the room.
+        </p>
+        <p class="reveal reveal-delay-2" style="margin-top:0">
+          Over a decade of clinical work has shaped a single, refined system — the way we assess, 
+          treat, teach, and care. Every session is one-on-one. Every plan is built around you.
+        </p>
+        <div class="intro-stats">
+          <div class="reveal reveal-delay-1">
+            <div class="stat-num">1:1</div>
+            <div class="stat-label">Always one-on-one</div>
+          </div>
+          <div class="reveal reveal-delay-2">
+            <div class="stat-num">10+</div>
+            <div class="stat-label">Years clinical experience</div>
+          </div>
+          <div class="reveal reveal-delay-1">
+            <div class="stat-num">PT · OT</div>
+            <div class="stat-label">Dual-licensed therapists</div>
+          </div>
+          <div class="reveal reveal-delay-2">
+            <div class="stat-num">NJ · NY</div>
+            <div class="stat-label">Licensed in both states</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="wrap">
+    <div class="process-header reveal">
+      <h2>The Fleet<br>Process.</h2>
+      <p>A structured pathway from first contact to full function — each step purposeful, each session earned.</p>
+    </div>
+    <div class="process-steps">
+      <div class="step reveal">
+        <div class="step-num">01</div>
+        <h3>Initial Consult</h3>
+        <p>We listen first. A thorough assessment of your history, goals, movement patterns, and pain drivers before anything else.</p>
+      </div>
+      <div class="step reveal reveal-delay-1">
+        <div class="step-num">02</div>
+        <h3>Custom Plan</h3>
+        <p>A treatment protocol built specifically for your body — not a template. Manual therapy, modalities, and movement selected for you.</p>
+      </div>
+      <div class="step reveal reveal-delay-2">
+        <div class="step-num">03</div>
+        <h3>Active Treatment</h3>
+        <p>Hands-on sessions combining manual therapy, therapeutic exercise, dry needling, cupping, and advanced modalities as indicated.</p>
+      </div>
+      <div class="step reveal reveal-delay-3">
+        <div class="step-num">04</div>
+        <h3>Long-Term Health</h3>
+        <p>We don't discharge and disappear. Education, home programs, and ongoing support to keep you moving well for life.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="services-header">
+      <div class="reveal">
+        <p class="overline" style="margin-bottom:16px">What We Offer</p>
+        <h2>Clinical services<br>built for real outcomes.</h2>
+      </div>
+      <p class="reveal reveal-delay-1">
+        Every modality we use has a purpose. We combine evidence-based intervention with skilled hands 
+        to address pain, restore function, and build resilience.
+      </p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <svg class="service-icon" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="22" r="20" stroke="#1a1a18" stroke-width="2"/>
+          <path d="M14 22 a8 8 0 0 1 16 0" stroke="#1a1a18" stroke-width="2" fill="none"/>
+          <line x1="8" y1="22" x2="36" y2="22" stroke="#1a1a18" stroke-width="2"/>
+        </svg>
+        <h3>Physical Therapy</h3>
+        <p>Comprehensive evaluation and treatment for musculoskeletal and neuromuscular conditions. One-on-one care, every visit.</p>
+        <div class="service-tags">
+          <span class="tag">Ortho</span>
+          <span class="tag">Sports</span>
+          <span class="tag">Spine</span>
+          <span class="tag">Post-Surgical</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <svg class="service-icon" viewBox="0 0 44 44" fill="none">
+          <rect x="6" y="8" width="32" height="28" rx="3" stroke="#1a1a18" stroke-width="2"/>
+          <path d="M14 20 h16 M14 26 h10" stroke="#1a1a18" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="30" cy="14" r="4" stroke="#1a1a18" stroke-width="2"/>
+        </svg>
+        <h3>Occupational Therapy</h3>
+        <p>Restoring functional independence through work rehab, hand therapy, FCE, and daily living activities. Workers' comp specialty.</p>
+        <div class="service-tags">
+          <span class="tag">Work Rehab</span>
+          <span class="tag">FCE</span>
+          <span class="tag">Hand Therapy</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <svg class="service-icon" viewBox="0 0 44 44" fill="none">
+          <path d="M10 28 Q22 10 34 28" stroke="#1a1a18" stroke-width="2" fill="none"/>
+          <circle cx="22" cy="30" r="4" stroke="#1a1a18" stroke-width="2"/>
+          <path d="M16 22 Q22 16 28 22" stroke="#1a1a18" stroke-width="2" fill="none"/>
+        </svg>
+        <h3>Manual Therapy</h3>
+        <p>Advanced hands-on techniques — joint mobilization, soft tissue work, IASTM — to restore movement and reduce pain at the source.</p>
+        <div class="service-tags">
+          <span class="tag">IASTM</span>
+          <span class="tag">Mobilization</span>
+          <span class="tag">Manipulation</span>
+        </div>
+      </div>
+      <div class="service-card reveal">
+        <svg class="service-icon" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="22" r="3" fill="#1a1a18"/>
+          <line x1="22" y1="8" x2="22" y2="14" stroke="#1a1a18" stroke-width="2" stroke-linecap="round"/>
+          <line x1="22" y1="30" x2="22" y2="36" stroke="#1a1a18" stroke-width="2" stroke-linecap="round"/>
+          <line x1="8" y1="22" x2="14" y2="22" stroke="#1a1a18" stroke-width="2" stroke-linecap="round"/>
+          <line x1="30" y1="22" x2="36" y2="22" stroke="#1a1a18" stroke-width="2" stroke-linecap="round"/>
+          <line x1="12.7" y1="12.7" x2="16.9" y2="16.9" stroke="#1a1a18" stroke-width="2" stroke-linecap="round"/>
+          <line x1="27.1" y1="27.1" x2="31.3" y2="31.3" stroke="#1a1a18" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <h3>Dry Needling</h3>
+        <p>Precise intramuscular stimulation targeting trigger points, motor dysfunction, and chronic pain patterns. Fast-tracked recovery.</p>
+        <div class="service-tags">
+          <span class="tag">Trigger Point</span>
+          <span class="tag">IMS</span>
+          <span class="tag">E-Stim</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <svg class="service-icon" viewBox="0 0 44 44" fill="none">
+          <ellipse cx="22" cy="22" rx="12" ry="8" stroke="#1a1a18" stroke-width="2"/>
+          <ellipse cx="22" cy="22" rx="18" ry="13" stroke="#1a1a18" stroke-width="2" opacity=".4"/>
+          <circle cx="22" cy="22" r="3" stroke="#1a1a18" stroke-width="2"/>
+        </svg>
+        <h3>Cupping Therapy</h3>
+        <p>Myofascial decompression using negative pressure. Effective for restricted fascia, chronic tension, and improving tissue mobility.</p>
+        <div class="service-tags">
+          <span class="tag">Myofascial</span>
+          <span class="tag">Decompression</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <svg class="service-icon" viewBox="0 0 44 44" fill="none">
+          <path d="M10 34 L20 14 L30 28 L36 20" stroke="#1a1a18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <circle cx="10" cy="34" r="3" fill="#d2e04b"/>
+          <circle cx="36" cy="20" r="3" fill="#1a1a18"/>
+        </svg>
+        <h3>Advanced Modalities</h3>
+        <p>Cold laser (LLLT), electrical stimulation, ultrasound, and taping — evidence-supported adjuncts that accelerate healing.</p>
+        <div class="service-tags">
+          <span class="tag">Cold Laser</span>
+          <span class="tag">E-Stim</span>
+          <span class="tag">Ultrasound</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote-section">
+  <div class="wrap">
+    <div class="quote-inner">
+      <span class="quote-mark">"</span>
+      <blockquote class="reveal">
+        Your progress and satisfaction is our <em>foremost priority.</em> 
+        We will do our utmost to ensure your experience is nothing but the best.
+      </blockquote>
+      <cite class="reveal reveal-delay-1">Dr. Main Kim, PT DPT · Founder, the Fleet™</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-portrait reveal">
+        <div class="portrait-bg">
+          <div class="portrait-placeholder">
+            <svg viewBox="0 0 100 100" fill="none">
+              <circle cx="50" cy="50" r="46" stroke="#f5f3ee" stroke-width="3"/>
+              <circle cx="50" cy="50" r="34" stroke="#f5f3ee" stroke-width="3"/>
+              <line x1="18" y1="50" x2="82" y2="50" stroke="#f5f3ee" stroke-width="3"/>
+              <path d="M32 50 a18 18 0 0 1 36 0" stroke="#f5f3ee" stroke-width="3" fill="none"/>
+            </svg>
+          </div>
+        </div>
+        <div class="portrait-badge">
+          PT · DPT<br>Board Certified<br>Fort Lee, NJ
+        </div>
+      </div>
+      <div class="about-content">
+        <p class="overline reveal" style="margin-bottom:16px">About the Founder</p>
+        <h2 class="reveal reveal-delay-1">Main Kim has a few hobbies — many of which include <em style="font-style:italic;font-family:'DM Serif Display'">helping you.</em></h2>
+        <p class="reveal reveal-delay-2">
+          Dr. Main Kim is a licensed Physical and Occupational Therapist based in Bergen County, NJ. 
+          With over a decade of clinical experience, Main built the Fleet on one conviction: that every 
+          patient deserves the kind of attention that actually moves the needle.
+        </p>
+        <p class="reveal reveal-delay-2">
+          Specializing in orthopedic manual therapy, workers' compensation rehabilitation, and outpatient rehabilitation, the Fleet serves the greater Fort Lee and Bergen County region from our office on Main Street.
+        </p>
+        <div class="credentials reveal reveal-delay-3">
+          <div class="cred">Licensed PT & OT — New Jersey & New York</div>
+          <div class="cred">Workers' Compensation Specialist</div>
+          <div class="cred">Advanced Manual Therapy & Dry Needling</div>
+          <div class="cred">Functional Capacity Evaluation (FCE) Certified</div>
+          <div class="cred">166 Main Street, 2nd Floor Suite, Fort Lee, NJ 07024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECOSYSTEM -->
+<section class="ecosystem">
+  <div class="wrap">
+    <p class="overline reveal" style="color:rgba(245,243,238,.35);margin-bottom:16px">The Fleet Universe</p>
+    <h2 class="reveal reveal-delay-1">One brand. Many ways<br>to <em style="font-style:italic;font-family:'DM Serif Display'">serve you.</em></h2>
+    <p class="ecosystem-intro reveal reveal-delay-2">
+      The Fleet is more than a clinic — it's a growing ecosystem of specialized services, 
+      each branch designed to meet you where you are.
+    </p>
+    <div class="ecosystem-list">
+      <div class="eco-item active reveal">Therapy</div>
+      <div class="eco-item reveal reveal-delay-1">Gym</div>
+      <div class="eco-item reveal reveal-delay-1">Club</div>
+      <div class="eco-item reveal reveal-delay-2">Concierge</div>
+      <div class="eco-item reveal reveal-delay-2">Mentorship</div>
+      <div class="eco-item reveal reveal-delay-3">School</div>
+      <div class="eco-item reveal reveal-delay-3">Family</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / BOOK -->
+<section class="cta-section" id="book">
+  <div class="wrap">
+    <div class="cta-inner">
+      <h2 class="reveal">
+        Ready to start your<br>
+        <em>recovery journey?</em>
+      </h2>
+      <div class="cta-right">
+        <p class="reveal reveal-delay-1">
+          Take the first step. Book a consultation and we'll build a plan around your body, your goals, and your life. No wait times. Just focused, one-on-one care.
+        </p>
+        <div class="reveal reveal-delay-2">
+          <a href="https://us03.vagaro.com/merchants/customers/v3/profile/forms?merchantId=cVxSx67cBfk~vgqvkFwYUQ==&userId=VjyaDUqIaJ9ZTvKEP9kn6g==&grouptoken=us03&formId=642c2e641476c62c859ca2ca&businessId=cVxSx67cBfk~vgqvkFwYUQ==&linkFrom=1" target="_blank" class="btn-primary" style="display:inline-block">Book a first consult</a>
+        </div>
+        <div class="cta-contact reveal reveal-delay-3">
+          <div class="contact-line">Email: <a href="mailto:main@thefleet.co">main@thefleet.co</a></div>
+          <div class="contact-line">Location: 166 Main Street, 2nd Floor Suite, Fort Lee, NJ 07024</div>
+          <div class="contact-line">By appointment only</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">
+          <svg viewBox="0 0 100 100" fill="none">
+            <circle cx="50" cy="50" r="46" stroke="#f5f3ee" stroke-width="3.5"/>
+            <circle cx="50" cy="50" r="34" stroke="#f5f3ee" stroke-width="3.5"/>
+            <line x1="18" y1="50" x2="82" y2="50" stroke="#f5f3ee" stroke-width="3.5"/>
+            <path d="M32 50 a18 18 0 0 1 36 0" stroke="#f5f3ee" stroke-width="3.5" fill="none"/>
+          </svg>
+          <span>the Fleet™</span>
+        </div>
+        <p class="footer-tagline">Long-term, personalized physical therapy — one-on-one attention most clinics can't offer.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <a href="#approach">Our Approach</a>
+        <a href="#process">The Process</a>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="https://us03.vagaro.com/merchants/customers/v3/profile/forms?merchantId=cVxSx67cBfk~vgqvkFwYUQ==&userId=VjyaDUqIaJ9ZTvKEP9kn6g==&grouptoken=us03&formId=642c2e641476c62c859ca2ca&businessId=cVxSx67cBfk~vgqvkFwYUQ==&linkFrom=1" target="_blank">Book a Consult</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:main@thefleet.co">main@thefleet.co</a>
+        <p>166 Main Street, 2nd Floor Suite<br>Fort Lee, NJ 07024</p>
+        <p>By appointment only</p>
+        <p style="margin-top:8px;font-size:11px;color:rgba(245,243,238,.25)">Licensed PT & OT · NJ & NY</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 the Fleet™. All rights reserved.</span>
+      <div class="footer-eco">
+        <span>Therapy</span>
+        <span>Gym</span>
+        <span>Club</span>
+        <span>Concierge</span>
+        <span>Mentorship</span>
+        <span>School</span>
+        <span>Family</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
